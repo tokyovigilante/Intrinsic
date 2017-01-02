@@ -32,7 +32,6 @@ LogPrint			| Basic severity-based logging.
 NetworkOperation	| `NSOperation` subclass which wraps `URLSession` for easy scheduling.
 QueueManager		| Provides an `OperationQueue` for `NetworkOperation`.
 String+Hash			| Cryptographic hash convenience functions for `String`.
-String+Utils 		| Search extensions for `String`.
 SwiftRegex			| Regular expressions borrowed from [johnno1962/SwiftRegex](https://github.com/johnno1962/SwiftRegex)
 
 Feedback
