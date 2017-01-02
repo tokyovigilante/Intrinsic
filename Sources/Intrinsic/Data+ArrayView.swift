@@ -22,7 +22,6 @@ extension Data {
     public func getFloat64(_ pos: Int, littleEndian: Bool = true) -> Double {
         assert(self.count >= pos + MemoryLayout<Double>.size, "pos out of bounds")
         var result: Double = 0.0
-        Float()
         _ = withUnsafeBytes { pointer in
             memcpy(&result, pointer+pos, MemoryLayout.size(ofValue: result))
         }
