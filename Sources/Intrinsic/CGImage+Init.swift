@@ -30,14 +30,20 @@ import Foundation
 #endif
 
 extension CGImage {
+    
     public class func loadFromURL (_ url: String, completionBlock: @escaping (CGImage?, NSError?) -> ()) {
         
         let imageOperation = NetworkOperation(url: url)
         imageOperation.completionBlock = {
             if let error = imageOperation.error {
                 completionBlock(nil, error)
+                return
             }
-            completionBlock(CGImage.from(imageOperation.data), nil)
+            guard let imageData = imageOperation.data else {
+                 completionBlock(nil, nil)
+                return
+            }
+            completionBlock(CGImage.from(imageData), nil)
         }
         imageOperation.enqueue()
     }

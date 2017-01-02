@@ -97,16 +97,9 @@ public class NetworkOperation: Operation {
     
     public override var isAsynchronous: Bool { return true }
     
-    public var data: Data {
-        if let data = _incomingData {
-           return (NSData(data: data as Data) as Data)
-        }
-        return Data()
-    }
+    public fileprivate (set) var data: Data? = nil
     
-    fileprivate var _incomingData: Data? = nil
-    
-    public var error: NSError?
+    public fileprivate (set) var error: NSError?
     
     fileprivate let headers: [String: String]?
     
@@ -224,22 +217,22 @@ fileprivate class ResourceSessionDelegate: NSObject, URLSessionDataDelegate {
             return
         }
         
-        if operation._incomingData == nil {
+        if operation.data == nil {
             var capacity = -1
 
             if let response = dataTask.response {
                 capacity = Int(response.expectedContentLength)
             }
             if capacity == -1 {
-                operation._incomingData = Data()
+                operation.data = Data()
             } else {
-                operation._incomingData = Data(capacity: capacity)
+                operation.data = Data(capacity: capacity)
             }
         }
         //logPrint(.debug, "Received \(data.count) bytes from " + (dataTask.originalRequest?.url?.absoluteString ?? "unknown"))
         //As the data may be discontiguous, you should use [NSData enumerateByteRangesUsingBlock:] to access it.
         data.enumerateBytes { (buffer, byteIndex, stop) in
-            operation._incomingData?.append(buffer.baseAddress!, count: buffer.count)
+            operation.data?.append(buffer.baseAddress!, count: buffer.count)
         }
     }
     
