@@ -48,10 +48,10 @@ extension URLSession {
 
 private let ResponseDelegateKey = "responseDelegateObject"
 
-class NetworkOperation: Operation {
+public class NetworkOperation: Operation {
     
     fileprivate var _privateReady: Bool = false
-    override var isReady: Bool {
+    public override var isReady: Bool {
     get {
             return _privateReady
         }
@@ -66,7 +66,7 @@ class NetworkOperation: Operation {
     }
     
     fileprivate var _privateExecuting: Bool = false
-    override var isExecuting: Bool {
+    public override var isExecuting: Bool {
         get {
             return _privateExecuting
         }
@@ -81,7 +81,7 @@ class NetworkOperation: Operation {
     }
     
     fileprivate var _privateFinished: Bool = false
-    override var isFinished: Bool {
+    public override var isFinished: Bool {
         get {
             return _privateFinished
         }
@@ -95,9 +95,9 @@ class NetworkOperation: Operation {
         }
     }
     
-    override var isAsynchronous: Bool { return true }
+    public override var isAsynchronous: Bool { return true }
     
-    var data: Data {
+    public var data: Data {
         if let data = _incomingData {
            return (NSData(data: data as Data) as Data)
         }
@@ -106,7 +106,7 @@ class NetworkOperation: Operation {
     
     fileprivate var _incomingData: Data? = nil
     
-    var error: NSError?
+    public var error: NSError?
     
     fileprivate let headers: [String: String]?
     
@@ -114,7 +114,7 @@ class NetworkOperation: Operation {
     
     fileprivate let url: String
     
-    init(url: String, headers: [String: String]? = nil, parameters: [String: String]? = nil) {
+    public init(url: String, headers: [String: String]? = nil, parameters: [String: String]? = nil) {
         self.url = url
         self.headers = headers
         self.parameters = parameters
@@ -122,11 +122,11 @@ class NetworkOperation: Operation {
         isReady = true
     }
     
-    func enqueue () {
+    public func enqueue () {
         QueueManager.sharedInstance.networkQueue.addOperation(self)
     }
     
-    override func start () {
+    public override func start () {
         if isCancelled {
             isFinished = true
             return
@@ -168,7 +168,7 @@ extension URLSessionTask {
         static var networkOperation = "networkOperationKey"
     }
     
-    var networkOperation: NetworkOperation? {
+    fileprivate var networkOperation: NetworkOperation? {
         get {
             return objc_getAssociatedObject(self, &AssociatedKeys.networkOperation) as? NetworkOperation
         }
@@ -179,7 +179,7 @@ extension URLSessionTask {
     }
 }
 
-class ResourceSessionDelegate: NSObject, URLSessionDataDelegate {
+fileprivate class ResourceSessionDelegate: NSObject, URLSessionDataDelegate {
     
     func urlSession(_ session: URLSession, dataTask: URLSessionDataTask, didReceive response: URLResponse, completionHandler: @escaping (URLSession.ResponseDisposition) -> Void) {
         guard let request = dataTask.originalRequest else {

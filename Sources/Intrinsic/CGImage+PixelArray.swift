@@ -10,7 +10,7 @@ import Foundation
 
 extension CGImage {
 
-    func renderToPixelArray (colorSpace cs: CGColorSpace, premultiplyAlpha: Bool, flipY: Bool) -> (array: [UInt8], bytesPerRow: Int)? {
+    public func renderToPixelArray (colorSpace cs: CGColorSpace, premultiplyAlpha: Bool, flipY: Bool) -> (array: [UInt8], bytesPerRow: Int)? {
 
         let width = self.width
         let height = self.height

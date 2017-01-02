@@ -9,27 +9,27 @@
 import Foundation
 
 extension String {
-    var md5: String {
+    public var md5: String {
         return HMAC.hash(self, algo: .md5)
     }
     
-    var sha1: String {
+    public var sha1: String {
         return HMAC.hash(self, algo: .sha1)
     }
     
-    var sha224: String {
+    public var sha224: String {
         return HMAC.hash(self, algo: .sha224)
     }
     
-    var sha256: String {
+    public var sha256: String {
         return HMAC.hash(self, algo: .sha256)
     }
     
-    var sha384: String {
+    public var sha384: String {
         return HMAC.hash(self, algo: .sha384)
     }
     
-    var sha512: String {
+    public var sha512: String {
         return HMAC.hash(self, algo: .sha512)
     }
 }

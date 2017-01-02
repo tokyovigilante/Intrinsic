@@ -10,13 +10,13 @@ import Foundation
 
 private let _maxConcurrentNetworkRequests = 12
 
-class QueueManager {
+public class QueueManager {
     
-    static let sharedInstance = QueueManager()
+    public static let sharedInstance = QueueManager()
     
     let networkQueue: OperationQueue
 
-    init () {
+    public init () {
         
         networkQueue = OperationQueue()
         networkQueue.qualityOfService = .utility

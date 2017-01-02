@@ -12,7 +12,7 @@ import Foundation
     import AppKit.NSImage
     
     extension NSImage {
-        var cgImage: CGImage? {
+        public var cgImage: CGImage? {
             get {
                 guard let imageData = tiffRepresentation else {
                     return nil
@@ -30,7 +30,7 @@ import Foundation
 #endif
 
 extension CGImage {
-    class func loadFromURL (_ url: String, completionBlock: @escaping (CGImage?, NSError?) -> ()) {
+    public class func loadFromURL (_ url: String, completionBlock: @escaping (CGImage?, NSError?) -> ()) {
         
         let imageOperation = NetworkOperation(url: url)
         imageOperation.completionBlock = {
@@ -42,7 +42,7 @@ extension CGImage {
         imageOperation.enqueue()
     }
     
-    class func from(_ data: Data) -> CGImage? {
+    public class func from(_ data: Data) -> CGImage? {
         #if os(OSX)
             let nsImage = NSImage(data: data)
             return nsImage?.cgImage

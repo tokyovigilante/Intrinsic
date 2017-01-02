@@ -11,7 +11,7 @@ import CCommonCrypto
 
 public struct HMAC {
     
-    static func hash(_ inp: String, algo: HMACAlgo) -> String {
+    public static func hash(_ inp: String, algo: HMACAlgo) -> String {
         if let stringData = inp.data(using: String.Encoding.utf8, allowLossyConversion: false) {
             return hexStringFromBuffer(digest(stringData, algo: algo))
         }
@@ -51,10 +51,10 @@ public struct HMAC {
     }
 }
 
-enum HMACAlgo {
+public enum HMACAlgo {
     case md5, sha1, sha224, sha256, sha384, sha512
     
-    func digestLength() -> Int {
+    public func digestLength() -> Int {
         var result: CInt = 0
         switch self {
         case .md5:

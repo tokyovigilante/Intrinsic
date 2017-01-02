@@ -17,7 +17,7 @@ public func deleteDuplicates<S:RangeReplaceableCollection>(_ seq:S)-> S where S.
 }
 
 extension Array {
-    var sizeInBytes: Int {
+    public var sizeInBytes: Int {
         return count == 0 ? 0 : count * MemoryLayout.stride(ofValue: self[0])
     }
     
@@ -43,7 +43,7 @@ extension Array {
     * var numbers = [0, 2, 4, 6, 8];
     * var index = Cesium.binarySearch(numbers, 6, comparator); // 3
     */
-    func binarySearch (_ itemToFind: Element, comparator: BinarySearchComparator) -> Int {
+    public func binarySearch (_ itemToFind: Element, comparator: BinarySearchComparator) -> Int {
         var low = 0
         var high = self.count - 1
         var i: Int
@@ -80,14 +80,14 @@ extension Array {
     *     return a - b;
     * }
     */
-    typealias BinarySearchComparator = (_ a: Element, _ b: Element) -> Int
+    public typealias BinarySearchComparator = (_ a: Element, _ b: Element) -> Int
 
 }
 
 extension Array where Element: Equatable {
     
     // Remove first collection element that is equal to the given `object`:
-    mutating func removeObject(object: Element) {
+    public mutating func removeObject(object: Element) {
         if let index = index(of: object) {
             remove(at: index)
         }
