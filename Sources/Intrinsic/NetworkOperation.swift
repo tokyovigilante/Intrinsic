@@ -229,7 +229,7 @@ fileprivate class ResourceSessionDelegate: NSObject, URLSessionDataDelegate {
                 operation.data = Data(capacity: capacity)
             }
         }
-        //logPrint(.debug, "Received \(data.count) bytes from " + (dataTask.originalRequest?.url?.absoluteString ?? "unknown"))
+        logPrint(.trace, "Received \(data.count) bytes from " + (dataTask.originalRequest?.url?.absoluteString ?? "unknown"))
         //As the data may be discontiguous, you should use [NSData enumerateByteRangesUsingBlock:] to access it.
         data.enumerateBytes { (buffer, byteIndex, stop) in
             operation.data?.append(buffer.baseAddress!, count: buffer.count)

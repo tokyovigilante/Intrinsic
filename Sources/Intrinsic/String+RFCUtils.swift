@@ -25,7 +25,7 @@ public extension String {
     public func rssDate () -> Date? {
         let str = uppercased().trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
         if str == "" {
-            logPrint(.debug, "invalid empty date string")
+            logPrint(.verbose, "invalid empty date string")
             return nil
         }
         return rfc822Date() ?? rfc3339Date() ?? Date(iso8601: self) ?? invalidDate() ??  nil
@@ -79,7 +79,7 @@ public extension String {
             
         }
         if date == nil {
-            logPrint(.debug, "invalid RFC822 date string (\(self))")
+            logPrint(.verbose, "invalid RFC822 date string (\(self))")
         }
         return date
     }
@@ -101,7 +101,7 @@ public extension String {
         if date == nil { date = dateFromFormat("yyyy'-'MM'-'dd'T'HH':'mm':'ss.SSSzzz") }
         if date == nil { date = dateFromFormat("yyyy'-'MM'-'dd'T'HH':'mm':'ss") }
         if date == nil {
-            logPrint(.debug, "invalid RFC3339 date string (\(self))")
+            logPrint(.verbose, "invalid RFC3339 date string (\(self))")
         }
         return date
     }

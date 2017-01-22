@@ -9,7 +9,9 @@
 import Foundation
 
 public enum LogLevel: UInt {
-    case debug = 0,
+    case trace = 0,
+    verbose,
+    debug,
     info,
     warning,
     error,
