@@ -8,18 +8,30 @@
 
 import Foundation
 
-@available(OSX 10.12, *)
-private let _iso8601Formatter = ISO8601DateFormatter()
+import Foundation
+
+import Foundation
+
+fileprivate class ISODateFormatter: DateFormatter {
+    
+    static let shared = ISODateFormatter()
+    
+    override init() {
+        super.init()
+        locale = Locale(identifier: "en_US_POSIX")
+        timeZone = TimeZone(abbreviation: "GMT")
+        dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+    }
+}
 
 extension Date {
     
     public var iso8601String: String {
-        if #available(OSX 10.12, iOS 10.0, *) {
-            return _iso8601Formatter.string(from: self)
-        } else {
-            // Fallback on earlier versions
-            return "Unsupported"
-        }
+        return ISODateFormatter.shared.string(from: self)
     }
     
     /**
@@ -30,19 +42,10 @@ extension Date {
      - returns: An NSDate object from the provided string or nil if the conversion failed.
      */
     public init? (iso8601 iso8601String: String) {
-        guard let date = _iso8601Formatter.date(from: iso8601String) else {
+        guard let date = ISODateFormatter.shared.date(from: iso8601String) else {
             return nil
         }
         self = date
-    }
-    
-    public static func from (iso8601String: String) -> Date? {
-        if #available(OSX 10.12, iOS 10.0, *) {
-            return _iso8601Formatter.date(from: iso8601String)
-        } else {
-            // Fallback on earlier versions
-            return Date()
-        }
     }
     
 }
