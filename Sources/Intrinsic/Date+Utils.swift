@@ -29,6 +29,13 @@ extension Date {
      
      - returns: An NSDate object from the provided string or nil if the conversion failed.
      */
+    public init? (iso8601 iso8601String: String) {
+        guard let date = _iso8601Formatter.date(from: iso8601String) else {
+            return nil
+        }
+        self = date
+    }
+    
     public static func from (iso8601String: String) -> Date? {
         if #available(OSX 10.12, iOS 10.0, *) {
             return _iso8601Formatter.date(from: iso8601String)
